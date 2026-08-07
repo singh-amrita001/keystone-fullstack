@@ -1,0 +1,185 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+html,body,#root{
+    width:100%;
+    min-height:100%;
+    background:#0d1117;
+}
+
+
+/* MAIN AREA */
+
+.users-container{
+
+    position:relative;
+
+    margin-left:280px;
+
+    padding-top:70px;
+
+    width:calc(100% - 280px);
+
+    min-height:100vh;
+
+    padding-left:30px;
+    padding-right:30px;
+    padding-bottom:30px;
+
+}
+
+
+
+/* CARD */
+
+.users-card{
+
+    width:100%;
+
+    min-height:calc(100vh - 100px);
+
+    background:#161b22;
+
+    border:1px solid #30363d;
+
+    border-radius:12px;
+
+    padding:35px;
+
+}
+
+
+/* HEADER */
+
+.users-card h1{
+
+    color:#f0f6fc;
+
+    font-size:32px;
+
+    margin-bottom:10px;
+
+}
+
+
+.users-card p{
+
+    color:#8b949e;
+
+    margin-bottom:30px;
+
+}
+
+
+
+/* TABLE */
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+thead{
+
+    background:#010409;
+
+}
+
+
+th{
+
+    padding:15px;
+
+    color:#c9d1d9;
+
+    text-align:left;
+
+    border-bottom:1px solid #30363d;
+
+}
+
+
+
+td{
+
+    padding:15px;
+
+    color:#c9d1d9;
+
+    border-bottom:1px solid #30363d;
+
+}
+
+
+tbody tr:hover{
+
+    background:#21262d;
+
+}
+
+
+
+/* IMAGE */
+
+
+.user-avatar{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid #58a6ff;
+
+}
+
+
+/* BADGES */
+
+
+.admin-badge{
+
+    background:#238636;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    color:white;
+
+}
+
+
+
+.user-badge{
+
+    background:#1f6feb;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    color:white;
+
+}
+
+
+.active-status{
+
+    color:#3fb950;
+
+    font-weight:600;
+
+}
