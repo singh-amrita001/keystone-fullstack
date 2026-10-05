@@ -1,6 +1,8 @@
 package com.zidio.keystone.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -19,17 +21,20 @@ public class Part {
     @Column(nullable = false)
     private String name;
 
+    @NotBlank(message = "Part number is required")
     @Column(name = "part_number", nullable = false, unique = true, length = 100)
     private String partNumber;
 
     @Column(length = 500)
     private String description;
 
-    @NotNull
+    @NotNull(message = "Stock quantity is required")
+    @Min(value = 0, message = "Stock quantity cannot be negative")
     @Column(name = "quantity_in_stock", nullable = false)
     private Integer stockQuantity = 0;
 
-    @NotNull
+    @NotNull(message = "Unit cost is required")
+    @DecimalMin(value = "0.0", inclusive = true, message = "Unit cost cannot be negative")
     @Column(name = "unit_cost", nullable = false, precision = 10, scale = 2)
     private BigDecimal unitCost = BigDecimal.ZERO;
 
@@ -38,11 +43,13 @@ public class Part {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
     public Part() {
     }
 
     @PrePersist
     public void prePersist() {
+
         if (createdAt == null) {
             createdAt = LocalDateTime.now();
         }

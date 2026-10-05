@@ -1,11 +1,14 @@
 package com.zidio.keystone.service;
 
 import com.zidio.keystone.domain.Part;
+import com.zidio.keystone.dto.PartResponse;
 import com.zidio.keystone.repository.PartRepository;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PartService {
@@ -16,26 +19,55 @@ public class PartService {
         this.partRepository = partRepository;
     }
 
-    public Part createPart(Part part) {
+    // =====================================================
+    // CREATE PART
+    // =====================================================
+
+    public PartResponse createPart(Part part) {
 
         if (part.getPartNumber() != null
-                && partRepository.existsByPartNumber(part.getPartNumber())) {
+                && partRepository.existsByPartNumber(
+                        part.getPartNumber().trim())) {
 
-            throw new RuntimeException("Part number already exists");
+            throw new RuntimeException(
+                    "Part number already exists"
+            );
         }
 
-        return partRepository.save(part);
+        part.setName(part.getName().trim());
+
+        if (part.getPartNumber() != null) {
+            part.setPartNumber(
+                    part.getPartNumber().trim()
+            );
+        }
+
+        Part savedPart = partRepository.save(part);
+
+        return convertToResponse(savedPart);
     }
 
-    public Part getPartById(Long id) {
+    // =====================================================
+    // GET PART BY ID
+    // =====================================================
 
-        return partRepository.findById(id)
+    @Transactional(readOnly = true)
+    public PartResponse getPartById(Long id) {
+
+        Part part = partRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Part not found"));
+                        new RuntimeException("Part not found")
+                );
+
+        return convertToResponse(part);
     }
 
-    // Get Parts - Pagination + Search
-    public Page<Part> getAllParts(
+    // =====================================================
+    // GET PARTS - PAGINATION + SEARCH
+    // =====================================================
+
+    @Transactional(readOnly = true)
+    public Page<PartResponse> getAllParts(
             int page,
             int size,
             String search) {
@@ -49,39 +81,98 @@ public class PartService {
                             search.trim(),
                             search.trim(),
                             pageable
-                    );
+                    )
+                    .map(this::convertToResponse);
         }
 
-        return partRepository.findAll(pageable);
+        return partRepository
+                .findAll(pageable)
+                .map(this::convertToResponse);
     }
 
-    public Part updatePart(Long id, Part updatedPart) {
+    // =====================================================
+    // UPDATE PART
+    // =====================================================
 
-        Part existingPart = getPartById(id);
+    public PartResponse updatePart(
+            Long id,
+            Part updatedPart) {
 
-        if (updatedPart.getPartNumber() != null
-                && !updatedPart.getPartNumber()
-                        .equals(existingPart.getPartNumber())
-                && partRepository.existsByPartNumber(
-                        updatedPart.getPartNumber())) {
+        Part existingPart = partRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Part not found")
+                );
 
-            throw new RuntimeException("Part number already exists");
+        String partNumber = updatedPart.getPartNumber();
+
+        if (partNumber != null) {
+            partNumber = partNumber.trim();
+
+            if (!partNumber.equals(existingPart.getPartNumber())
+                    && partRepository.existsByPartNumber(partNumber)) {
+
+                throw new RuntimeException(
+                        "Part number already exists"
+                );
+            }
         }
 
-        existingPart.setName(updatedPart.getName());
-        existingPart.setPartNumber(updatedPart.getPartNumber());
-        existingPart.setDescription(updatedPart.getDescription());
-        existingPart.setStockQuantity(updatedPart.getStockQuantity());
-        existingPart.setUnitCost(updatedPart.getUnitCost());
-        existingPart.setActive(updatedPart.getActive());
+        existingPart.setName(
+                updatedPart.getName().trim()
+        );
 
-        return partRepository.save(existingPart);
+        existingPart.setPartNumber(partNumber);
+
+        existingPart.setDescription(
+                updatedPart.getDescription()
+        );
+
+        existingPart.setStockQuantity(
+                updatedPart.getStockQuantity()
+        );
+
+        existingPart.setUnitCost(
+                updatedPart.getUnitCost()
+        );
+
+        existingPart.setActive(
+                updatedPart.getActive()
+        );
+
+        Part savedPart = partRepository.save(existingPart);
+
+        return convertToResponse(savedPart);
     }
+
+    // =====================================================
+    // DELETE PART
+    // =====================================================
 
     public void deletePart(Long id) {
 
-        Part existingPart = getPartById(id);
+        Part existingPart = partRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Part not found")
+                );
 
         partRepository.delete(existingPart);
+    }
+
+    // =====================================================
+    // CONVERT ENTITY TO RESPONSE DTO
+    // =====================================================
+
+    private PartResponse convertToResponse(Part part) {
+
+        return new PartResponse(
+                part.getId(),
+                part.getName(),
+                part.getPartNumber(),
+                part.getDescription(),
+                part.getStockQuantity(),
+                part.getUnitCost(),
+                part.getActive(),
+                part.getCreatedAt()
+        );
     }
 }

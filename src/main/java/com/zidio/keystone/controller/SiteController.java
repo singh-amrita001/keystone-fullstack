@@ -1,7 +1,7 @@
 package com.zidio.keystone.controller;
 
-import com.zidio.keystone.domain.Site;
 import com.zidio.keystone.dto.SiteRequest;
+import com.zidio.keystone.dto.SiteResponse;
 import com.zidio.keystone.service.SiteService;
 
 import jakarta.validation.Valid;
@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,12 +33,13 @@ public class SiteController {
     // CREATE SITE
     // ADMIN / DISPATCHER ONLY
     // =====================================================
+
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'DISPATCHER')")
-    public ResponseEntity<Site> createSite(
+    public ResponseEntity<SiteResponse> createSite(
             @Valid @RequestBody SiteRequest request) {
 
-        return ResponseEntity.ok(
+        return ResponseEntity.status(HttpStatus.CREATED).body(
                 siteService.createSite(request)
         );
     }
@@ -45,8 +47,9 @@ public class SiteController {
     // =====================================================
     // GET SITE BY ID
     // =====================================================
+
     @GetMapping("/{id}")
-    public ResponseEntity<Site> getSiteById(
+    public ResponseEntity<SiteResponse> getSiteById(
             @PathVariable Long id,
             Authentication authentication) {
 
@@ -59,16 +62,11 @@ public class SiteController {
     }
 
     // =====================================================
-    // GET ALL SITES
-    //
-    // Example:
-    // /api/sites?page=0&size=10
-    //
-    // Search:
-    // /api/sites?search=Delhi&page=0&size=10
+    // GET ALL SITES - PAGINATED
     // =====================================================
+
     @GetMapping
-    public ResponseEntity<Page<Site>> getSites(
+    public ResponseEntity<Page<SiteResponse>> getSites(
             @RequestParam(defaultValue = "") String search,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -92,8 +90,9 @@ public class SiteController {
     // =====================================================
     // GET SITES BY CUSTOMER
     // =====================================================
+
     @GetMapping("/customer/{customerId}")
-    public ResponseEntity<Page<Site>> getSitesByCustomerId(
+    public ResponseEntity<Page<SiteResponse>> getSitesByCustomerId(
             @PathVariable Long customerId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -118,9 +117,10 @@ public class SiteController {
     // UPDATE SITE
     // ADMIN / DISPATCHER ONLY
     // =====================================================
+
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'DISPATCHER')")
-    public ResponseEntity<Site> updateSite(
+    public ResponseEntity<SiteResponse> updateSite(
             @PathVariable Long id,
             @Valid @RequestBody SiteRequest request) {
 
@@ -133,16 +133,14 @@ public class SiteController {
     // DELETE SITE
     // ADMIN / DISPATCHER ONLY
     // =====================================================
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'DISPATCHER')")
-    public ResponseEntity<String> deleteSite(
+    public ResponseEntity<Void> deleteSite(
             @PathVariable Long id) {
 
         siteService.deleteSite(id);
 
-        return ResponseEntity.ok(
-                "Site deleted successfully"
-        );
+        return ResponseEntity.noContent().build();
     }
 }
-
