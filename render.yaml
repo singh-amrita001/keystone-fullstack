@@ -1,0 +1,50 @@
+services:
+
+  # =========================
+  # MYSQL DATABASE
+  # =========================
+  - type: pserv
+    name: keystone-mysql
+    runtime: image
+    image:
+      url: docker.io/library/mysql:8.0
+    plan: starter
+
+    envVars:
+      - key: MYSQL_DATABASE
+        value: keystone
+
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+
+    disk:
+      name: keystone-mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 10
+
+  # =========================
+  # SPRING BOOT BACKEND
+  # =========================
+  - type: web
+    name: keystone-backend
+    runtime: docker
+    rootDir: .
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+
+    envVars:
+      - key: DB_URL
+        value: jdbc:mysql://keystone-mysql:3306/keystone
+
+      - key: DB_USERNAME
+        value: root
+
+      - key: DB_PASSWORD
+        fromService:
+          type: pserv
+          name: keystone-mysql
+          envVarKey: MYSQL_ROOT_PASSWORD
+
+      - key: PORT
+        value: 8082
