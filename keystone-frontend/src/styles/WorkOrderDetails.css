@@ -1,0 +1,220 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+.workorders-details-page{
+
+    margin-left:280px;
+
+    margin-top:70px;
+
+    min-height:calc(100vh - 70px);
+
+    width:calc(100% - 280px);
+
+    padding:40px;
+
+    background:#0d1117;
+
+    color:#f0f6fc;
+
+}
+
+
+
+/* BACK BUTTON */
+
+.back-btn{
+
+    padding:10px 18px;
+
+    margin-bottom:25px;
+
+    background:#21262d;
+
+    color:#f0f6fc;
+
+    border:1px solid #30363d;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+
+
+.back-btn:hover{
+
+    background:#30363d;
+
+}
+
+
+
+/* CARD */
+
+.details-card{
+
+    max-width:850px;
+
+    background:#161b22;
+
+    border:1px solid #30363d;
+
+    padding:35px;
+
+    border-radius:12px;
+
+}
+
+
+
+/* TITLE */
+
+.details-card h1{
+
+    font-size:32px;
+
+    margin-bottom:30px;
+
+}
+
+
+
+/* ROW */
+
+.details-item{
+
+    display:flex;
+
+    gap:20px;
+
+    padding:15px 0;
+
+    border-bottom:1px solid #30363d;
+
+}
+
+
+
+.details-item strong{
+
+    width:170px;
+
+    color:#c9d1d9;
+
+}
+
+
+
+.details-item span{
+
+    color:#8b949e;
+
+}
+
+
+
+/* BUTTON AREA */
+
+.details-actions{
+
+    margin-top:30px;
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+
+
+.edit-btn{
+
+    padding:10px 25px;
+
+    background:#238636;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+
+
+.delete-btn{
+
+    padding:10px 25px;
+
+    background:#da3633;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+
+
+.edit-btn:hover{
+
+    background:#2ea043;
+
+}
+
+
+
+.delete-btn:hover{
+
+    background:#f85149;
+
+}
+
+
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.workorders-details-page{
+
+    margin-left:80px;
+
+    width:calc(100% - 80px);
+
+}
+
+}
+
+
+
+@media(max-width:600px){
+
+.workorders-details-page{
+
+    margin-left:0;
+
+    width:100%;
+
+}
+
+.details-item{
+
+    flex-direction:column;
+
+}
+
+}

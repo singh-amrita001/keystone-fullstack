@@ -1,0 +1,154 @@
+/* ========================= */
+/* GLOBAL */
+/* ========================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: #f5f7fb;
+  color: #172033;
+}
+
+/* ========================= */
+/* NAVBAR */
+/* ========================= */
+
+.navbar {
+  height: 72px;
+  width: 100%;
+
+  background: #111827;
+  color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 40px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 1000;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+
+.navbar button {
+  padding: 10px 16px;
+
+  background: transparent;
+  color: white;
+
+  border: 1px solid #374151;
+  border-radius: 7px;
+
+  cursor: pointer;
+}
+
+.navbar button:hover {
+  background: #1f2937;
+}
+
+/* ========================= */
+/* LOGIN */
+/* ========================= */
+
+
+/* ========================= */
+/* DASHBOARD */
+/* ========================= */
+
+.dashboard {
+  margin-left: 260px;
+  margin-top: 72px;
+
+  width: calc(100% - 260px);
+  min-height: calc(100vh - 72px);
+
+  padding: 45px;
+
+  background: #f8fafc;
+}
+
+.page-header {
+  margin-bottom: 35px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+
+  color: #2563eb;
+  letter-spacing: 1px;
+}
+
+.page-header h1 {
+  margin-top: 10px;
+  font-size: 36px;
+}
+
+.page-header p {
+  margin-top: 10px;
+  color: #64748b;
+}
+
+.dashboard-grid {
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  );
+
+  gap: 22px;
+}
+
+.dashboard-card {
+  background: white;
+
+  padding: 28px;
+
+  border-radius: 16px;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+.card-icon {
+  font-size: 28px;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 768px) {
+  .dashboard {
+    margin-left: 90px;
+    width: calc(100% - 90px);
+    padding: 25px 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .navbar {
+    padding: 0 20px;
+  }
+}

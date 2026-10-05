@@ -1,0 +1,287 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+.login-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    background:#0d1117;
+
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+}
+
+
+
+/* LEFT */
+
+.brand-section{
+
+    width:50%;
+
+    background:#161b22;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:60px;
+
+    color:#f0f6fc;
+
+}
+
+
+
+.brand-content h1{
+
+    font-size:60px;
+
+    color:#58a6ff;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.brand-content p{
+
+    font-size:20px;
+
+    color:#c9d1d9;
+
+}
+
+
+
+.features{
+
+    margin-top:40px;
+
+}
+
+
+
+.features div{
+
+    margin:15px 0;
+
+    color:#8b949e;
+
+    font-size:16px;
+
+}
+
+
+
+
+
+/* RIGHT */
+
+
+.form-section{
+
+    width:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+
+
+
+.login-card{
+
+    width:420px;
+
+    background:#161b22;
+
+    border:1px solid #30363d;
+
+    border-radius:12px;
+
+    padding:40px;
+
+    color:#f0f6fc;
+
+}
+
+
+
+.login-card h2{
+
+    font-size:30px;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.subtitle{
+
+    color:#8b949e;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.login-card label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#c9d1d9;
+
+}
+
+
+
+.login-card input{
+
+
+    width:100%;
+
+    height:45px;
+
+    padding:0 14px;
+
+    margin-bottom:20px;
+
+    background:#0d1117;
+
+    border:1px solid #30363d;
+
+    border-radius:8px;
+
+    color:white;
+
+}
+
+
+
+.login-card input:focus{
+
+    outline:none;
+
+    border-color:#58a6ff;
+
+}
+
+
+
+
+.login-card button{
+
+
+    width:100%;
+
+    height:45px;
+
+    background:#238636;
+
+    border:none;
+
+    border-radius:8px;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+
+
+.login-card button:hover{
+
+    background:#2ea043;
+
+}
+
+
+
+
+.error{
+
+    background:#3d1d1d;
+
+    color:#ff7b72;
+
+    padding:10px;
+
+    border-radius:8px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.register-text{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    color:#8b949e;
+
+}
+
+
+
+.register-text span{
+
+    color:#58a6ff;
+
+    cursor:pointer;
+
+    margin-left:5px;
+
+}
+
+
+
+
+@media(max-width:900px){
+
+
+.brand-section{
+
+display:none;
+
+}
+
+
+.form-section{
+
+width:100%;
+
+}
+
+
+}

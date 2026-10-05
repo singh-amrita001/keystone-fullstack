@@ -1,0 +1,431 @@
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+/* MAIN PAGE */
+
+.workorders-page{
+
+    margin-left:280px;
+
+    margin-top:70px;
+
+    min-height:calc(100vh - 70px);
+
+    width:calc(100% - 280px);
+
+    padding:35px;
+
+    background:#0d1117;
+
+    color:#f0f6fc;
+
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+}
+
+
+
+/* HEADER */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.header h1{
+
+    font-size:36px;
+
+    font-weight:700;
+
+    color:#f0f6fc;
+
+}
+
+
+
+/* CREATE BUTTON */
+
+.create-btn{
+
+    background:#238636;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+
+
+.create-btn:hover{
+
+    background:#2ea043;
+
+}
+
+
+
+/* FILTER */
+
+.filters{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:30px;
+
+    background:#161b22;
+
+    border:1px solid #30363d;
+
+    padding:20px;
+
+    border-radius:12px;
+
+}
+
+
+
+.filters input,
+.filters select{
+
+
+    background:#0d1117;
+
+    color:#f0f6fc;
+
+    border:1px solid #30363d;
+
+    padding:12px 15px;
+
+    border-radius:8px;
+
+    font-size:14px;
+
+    outline:none;
+
+}
+
+
+
+.filters input{
+
+    flex:1;
+
+}
+
+
+
+.filters input:focus,
+.filters select:focus{
+
+    border-color:#58a6ff;
+
+}
+
+
+
+/* TABLE */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:#161b22;
+
+    border:1px solid #30363d;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+
+
+thead{
+
+    background:#21262d;
+
+}
+
+
+
+thead th{
+
+    padding:16px;
+
+    text-align:left;
+
+    color:#c9d1d9;
+
+    font-size:14px;
+
+}
+
+
+
+tbody td{
+
+    padding:16px;
+
+    border-top:1px solid #30363d;
+
+    color:#8b949e;
+
+}
+
+
+
+tbody tr:hover{
+
+    background:#1c2128;
+
+}
+
+
+
+tbody td:first-child{
+
+    color:#f0f6fc;
+
+    font-weight:600;
+
+}
+
+
+
+/* ACTION BUTTONS */
+
+td button{
+
+    margin-right:8px;
+
+    padding:8px 14px;
+
+    border-radius:8px;
+
+    border:1px solid #30363d;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+
+
+
+/* VIEW */
+
+td button:nth-child(1){
+
+    background:#21262d;
+
+    color:#58a6ff;
+
+}
+
+
+
+td button:nth-child(1):hover{
+
+    background:#30363d;
+
+}
+
+
+
+/* EDIT */
+
+td button:nth-child(2){
+
+    background:#9e6a03;
+
+    color:white;
+
+    border:none;
+
+}
+
+
+
+td button:nth-child(2):hover{
+
+    background:#bb8009;
+
+}
+
+
+
+/* DELETE */
+
+td button:nth-child(3){
+
+    background:#da3633;
+
+    color:white;
+
+    border:none;
+
+}
+
+
+
+td button:nth-child(3):hover{
+
+    background:#f85149;
+
+}
+
+
+
+/* PAGINATION */
+
+.pagination{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-top:35px;
+
+}
+
+
+
+.pagination button{
+
+    padding:10px 20px;
+
+    background:#21262d;
+
+    border:1px solid #30363d;
+
+    color:#f0f6fc;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+
+
+.pagination button:hover{
+
+    background:#30363d;
+
+}
+
+
+
+.pagination button:disabled{
+
+    opacity:.5;
+
+    cursor:not-allowed;
+
+}
+
+
+
+.pagination span{
+
+    color:#8b949e;
+
+}
+
+
+
+/* RESPONSIVE */
+
+
+@media(max-width:900px){
+
+    .workorders-page{
+
+        margin-left:80px;
+
+        width:calc(100% - 80px);
+
+    }
+
+
+    .header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+
+    .filters{
+
+        flex-direction:column;
+
+    }
+
+
+    table{
+
+        display:block;
+
+        overflow-x:auto;
+
+    }
+
+}
+
+
+
+@media(max-width:600px){
+
+    .workorders-page{
+
+        margin-left:0;
+
+        width:100%;
+
+    }
+
+}

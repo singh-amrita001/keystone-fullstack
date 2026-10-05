@@ -1,0 +1,431 @@
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+body{
+
+    background:#0d1117;
+
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+}
+
+
+/* =========================
+   MAIN AREA
+========================= */
+
+
+.main-area{
+
+    margin-left:280px;
+
+    padding-top:70px;
+
+    min-height:100vh;
+
+    background:#0d1117;
+
+}
+
+
+
+/* =========================
+   DASHBOARD CONTAINER
+========================= */
+
+
+.dashboard-container{
+
+    padding:40px;
+
+    color:#f0f6fc;
+
+}
+
+
+
+/* =========================
+   HEADER
+========================= */
+
+
+.dashboard-header{
+
+    margin-bottom:35px;
+
+}
+
+
+
+.dashboard-header h1{
+
+    color:#f0f6fc;
+
+    font-size:34px;
+
+    font-weight:700;
+
+}
+
+
+
+.dashboard-header p{
+
+    margin-top:10px;
+
+    color:#8b949e;
+
+    font-size:15px;
+
+}
+
+
+
+/* =========================
+   STATS GRID
+========================= */
+
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:20px;
+
+}
+
+
+
+/* =========================
+   STAT CARD
+========================= */
+
+
+.stat-card{
+
+    background:#161b22;
+
+    border:1px solid #30363d;
+
+    border-radius:12px;
+
+    padding:25px;
+
+    transition:.3s;
+
+}
+
+
+
+.stat-card:hover{
+
+    border-color:#58a6ff;
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.4);
+
+}
+
+
+
+/* CARD TOP */
+
+
+.card-top{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#8b949e;
+
+    font-size:14px;
+
+}
+
+
+
+.card-top svg{
+
+    color:#58a6ff;
+
+    font-size:22px;
+
+}
+
+
+
+.stat-card h2{
+
+    margin-top:25px;
+
+    font-size:38px;
+
+    color:#ffffff;
+
+}
+
+
+
+
+
+/* =========================
+   LOWER SECTION
+========================= */
+
+
+.dashboard-grid{
+
+
+    display:grid;
+
+
+    grid-template-columns:
+    2fr 1fr;
+
+
+    gap:20px;
+
+
+    margin-top:30px;
+
+
+}
+
+
+
+.box{
+
+
+    background:#161b22;
+
+
+    border:1px solid #30363d;
+
+
+    border-radius:12px;
+
+
+    padding:25px;
+
+
+}
+
+
+
+.box h2{
+
+
+    color:#f0f6fc;
+
+
+    font-size:20px;
+
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+/* ACTIVITY */
+
+
+.activity-item{
+
+
+    display:flex;
+
+
+    justify-content:space-between;
+
+
+    padding:15px 0;
+
+
+    border-bottom:1px solid #21262d;
+
+
+    color:#c9d1d9;
+
+
+}
+
+
+
+.activity-item small{
+
+
+    color:#8b949e;
+
+
+}
+
+
+
+/* SUMMARY */
+
+
+.summary-row{
+
+
+    display:flex;
+
+
+    justify-content:space-between;
+
+
+    padding:15px 0;
+
+
+    border-bottom:1px solid #21262d;
+
+
+    color:#c9d1d9;
+
+
+}
+
+
+
+.summary-row strong{
+
+
+    color:#58a6ff;
+
+
+}
+
+
+
+
+
+/* =========================
+   LOADING
+========================= */
+
+
+.loading{
+
+
+    margin-left:40px;
+
+    margin-top:40px;
+
+    color:#8b949e;
+
+}
+
+
+
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+
+@media(max-width:1100px){
+
+
+.stats-grid{
+
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+
+}
+
+
+.dashboard-grid{
+
+
+    grid-template-columns:1fr;
+
+
+}
+
+
+}
+
+
+
+@media(max-width:768px){
+
+
+.main-area{
+
+
+    margin-left:80px;
+
+
+}
+
+
+
+.dashboard-container{
+
+
+    padding:25px;
+
+
+}
+
+
+
+.stats-grid{
+
+
+    grid-template-columns:1fr;
+
+
+}
+
+
+}
+
+
+
+@media(max-width:600px){
+
+
+.main-area{
+
+
+    margin-left:0;
+
+
+}
+
+
+.dashboard-container{
+
+
+    padding:20px;
+
+
+}
+
+
+}
