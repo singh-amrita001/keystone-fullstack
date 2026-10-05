@@ -1,0 +1,2 @@
+ALTER TABLE part_usages
+ADD COLUMN total_cost DECIMAL(12,2) NOT NULL;

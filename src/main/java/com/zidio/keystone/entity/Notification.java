@@ -1,14 +1,12 @@
 package com.zidio.keystone.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import com.zidio.keystone.domain.Customer;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "notifications")
+public class Notification {
 
     // =====================================================
     // ID
@@ -19,178 +17,180 @@ public class User {
     private Long id;
 
     // =====================================================
-    // NAME
+    // RECIPIENT
+    // =====================================================
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    // =====================================================
+    // WORK ORDER
+    // =====================================================
+
+    @Column(name = "work_order_id")
+    private Long workOrderId;
+
+    // =====================================================
+    // TYPE
     // =====================================================
 
     @Column(nullable = false)
-    private String name;
+    private String type;
 
     // =====================================================
-    // EMAIL
+    // MESSAGE
     // =====================================================
 
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(nullable = false, length = 1000)
+    private String message;
 
     // =====================================================
-    // PASSWORD
+    // READ STATUS
     // =====================================================
 
-    @JsonIgnore
-    @Column(nullable = false)
-    private String password;
+    @Column(name = "is_read", nullable = false)
+    private Boolean read = false;
 
     // =====================================================
-    // ROLE
+    // CREATED AT
     // =====================================================
 
-    @Column(nullable = false)
-    private String role;
-
-    // =====================================================
-    // CUSTOMER ORGANIZATION
-    // CUSTOMER USERS ONLY
-    // =====================================================
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
-
-    // =====================================================
-    // PROFILE PICTURE
-    // =====================================================
-
-    @Column(name = "profile_pic")
-    private String profilePic;
-
-    // =====================================================
-    // EMAIL NOTIFICATIONS
-    // =====================================================
-
-    @Column(name = "email_notifications", nullable = false)
-    private Boolean emailNotifications = true;
-
-    // =====================================================
-    // SYSTEM NOTIFICATIONS
-    // =====================================================
-
-    @Column(name = "system_notifications", nullable = false)
-    private Boolean systemNotifications = true;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
     // =====================================================
     // CONSTRUCTOR
     // =====================================================
 
-    public User() {
+    public Notification() {
     }
 
     // =====================================================
-    // ID
+    // PRE PERSIST
+    // =====================================================
+
+    @PrePersist
+    public void prePersist() {
+
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+
+        if (read == null) {
+            read = false;
+        }
+    }
+
+    // =====================================================
+    // GET ID
     // =====================================================
 
     public Long getId() {
         return id;
     }
 
+    // =====================================================
+    // SET ID
+    // =====================================================
+
     public void setId(Long id) {
         this.id = id;
     }
 
     // =====================================================
-    // NAME
+    // GET USER
     // =====================================================
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public User getUser() {
+        return user;
     }
 
     // =====================================================
-    // EMAIL
+    // SET USER
     // =====================================================
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // =====================================================
-    // PASSWORD
+    // GET WORK ORDER ID
     // =====================================================
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public Long getWorkOrderId() {
+        return workOrderId;
     }
 
     // =====================================================
-    // ROLE
+    // SET WORK ORDER ID
     // =====================================================
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setWorkOrderId(Long workOrderId) {
+        this.workOrderId = workOrderId;
     }
 
     // =====================================================
-    // CUSTOMER
+    // GET TYPE
     // =====================================================
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public String getType() {
+        return type;
     }
 
     // =====================================================
-    // PROFILE PIC
+    // SET TYPE
     // =====================================================
 
-    public String getProfilePic() {
-        return profilePic;
-    }
-
-    public void setProfilePic(String profilePic) {
-        this.profilePic = profilePic;
+    public void setType(String type) {
+        this.type = type;
     }
 
     // =====================================================
-    // EMAIL NOTIFICATIONS
+    // GET MESSAGE
     // =====================================================
 
-    public Boolean getEmailNotifications() {
-        return emailNotifications;
-    }
-
-    public void setEmailNotifications(Boolean emailNotifications) {
-        this.emailNotifications = emailNotifications;
+    public String getMessage() {
+        return message;
     }
 
     // =====================================================
-    // SYSTEM NOTIFICATIONS
+    // SET MESSAGE
     // =====================================================
 
-    public Boolean getSystemNotifications() {
-        return systemNotifications;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public void setSystemNotifications(Boolean systemNotifications) {
-        this.systemNotifications = systemNotifications;
+    // =====================================================
+    // GET READ
+    // =====================================================
+
+    public Boolean getRead() {
+        return read;
+    }
+
+    // =====================================================
+    // SET READ
+    // =====================================================
+
+    public void setRead(Boolean read) {
+        this.read = read;
+    }
+
+    // =====================================================
+    // GET CREATED AT
+    // =====================================================
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    // =====================================================
+    // SET CREATED AT
+    // =====================================================
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
-
