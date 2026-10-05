@@ -3,6 +3,7 @@ package com.zidio.keystone.service;
 import com.zidio.keystone.domain.Customer;
 import com.zidio.keystone.domain.Site;
 import com.zidio.keystone.dto.SiteRequest;
+import com.zidio.keystone.dto.SiteResponse;
 import com.zidio.keystone.entity.User;
 import com.zidio.keystone.repository.CustomerRepository;
 import com.zidio.keystone.repository.SiteRepository;
@@ -35,7 +36,7 @@ public class SiteService {
     // CREATE SITE
     // =====================================================
 
-    public Site createSite(SiteRequest request) {
+    public SiteResponse createSite(SiteRequest request) {
 
         Customer customer = customerRepository.findById(
                 request.getCustomerId()
@@ -52,7 +53,9 @@ public class SiteService {
         site.setPostalCode(request.getPostalCode());
         site.setCustomer(customer);
 
-        return siteRepository.save(site);
+        Site savedSite = siteRepository.save(site);
+
+        return convertToResponse(savedSite);
     }
 
     // =====================================================
@@ -60,7 +63,9 @@ public class SiteService {
     // =====================================================
 
     @Transactional(readOnly = true)
-    public Site getSiteById(Long id, String email) {
+    public SiteResponse getSiteById(
+            Long id,
+            String email) {
 
         Site site = siteRepository.findById(id)
                 .orElseThrow(() ->
@@ -74,7 +79,7 @@ public class SiteService {
                 site.getCustomer().getId()
         );
 
-        return site;
+        return convertToResponse(site);
     }
 
     // =====================================================
@@ -82,14 +87,13 @@ public class SiteService {
     // =====================================================
 
     @Transactional(readOnly = true)
-    public Page<Site> getSites(
+    public Page<SiteResponse> getSites(
             String search,
             Pageable pageable,
             String email) {
 
         User user = getUserByEmail(email);
 
-        // CUSTOMER can only see sites belonging to their organization
         if ("CUSTOMER".equalsIgnoreCase(user.getRole())) {
 
             if (user.getCustomer() == null) {
@@ -102,10 +106,9 @@ public class SiteService {
 
             if (search == null || search.trim().isEmpty()) {
 
-                return siteRepository.findByCustomerId(
-                        customerId,
-                        pageable
-                );
+                return siteRepository
+                        .findByCustomerId(customerId, pageable)
+                        .map(this::convertToResponse);
             }
 
             return siteRepository
@@ -113,19 +116,23 @@ public class SiteService {
                             customerId,
                             search.trim(),
                             pageable
-                    );
+                    )
+                    .map(this::convertToResponse);
         }
 
-        // ADMIN / DISPATCHER / other authorized roles
         if (search == null || search.trim().isEmpty()) {
 
-            return siteRepository.findAll(pageable);
+            return siteRepository
+                    .findAll(pageable)
+                    .map(this::convertToResponse);
         }
 
-        return siteRepository.findByNameContainingIgnoreCase(
-                search.trim(),
-                pageable
-        );
+        return siteRepository
+                .findByNameContainingIgnoreCase(
+                        search.trim(),
+                        pageable
+                )
+                .map(this::convertToResponse);
     }
 
     // =====================================================
@@ -133,7 +140,7 @@ public class SiteService {
     // =====================================================
 
     @Transactional(readOnly = true)
-    public Page<Site> getSitesByCustomerId(
+    public Page<SiteResponse> getSitesByCustomerId(
             Long customerId,
             Pageable pageable,
             String email) {
@@ -145,17 +152,16 @@ public class SiteService {
                 customerId
         );
 
-        return siteRepository.findByCustomerId(
-                customerId,
-                pageable
-        );
+        return siteRepository
+                .findByCustomerId(customerId, pageable)
+                .map(this::convertToResponse);
     }
 
     // =====================================================
     // UPDATE SITE
     // =====================================================
 
-    public Site updateSite(
+    public SiteResponse updateSite(
             Long id,
             SiteRequest request) {
 
@@ -177,7 +183,9 @@ public class SiteService {
         existingSite.setPostalCode(request.getPostalCode());
         existingSite.setCustomer(customer);
 
-        return siteRepository.save(existingSite);
+        Site savedSite = siteRepository.save(existingSite);
+
+        return convertToResponse(savedSite);
     }
 
     // =====================================================
@@ -233,5 +241,32 @@ public class SiteService {
                 );
             }
         }
+    }
+
+    // =====================================================
+    // CONVERT ENTITY TO RESPONSE DTO
+    // =====================================================
+
+    private SiteResponse convertToResponse(Site site) {
+
+        Long customerId = null;
+        String customerName = null;
+
+        if (site.getCustomer() != null) {
+            customerId = site.getCustomer().getId();
+            customerName = site.getCustomer().getName();
+        }
+
+        return new SiteResponse(
+                site.getId(),
+                site.getName(),
+                site.getAddress(),
+                site.getCity(),
+                site.getState(),
+                site.getPostalCode(),
+                customerId,
+                customerName,
+                site.getCreatedAt()
+        );
     }
 }

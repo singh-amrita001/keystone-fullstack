@@ -3,26 +3,19 @@ package com.zidio.keystone.dto;
 public class NotificationPreferencesRequest {
 
     private Boolean emailNotifications;
-    private Boolean systemNotifications;
 
-    // =====================================================
-    // CONSTRUCTOR
-    // =====================================================
+    private Boolean systemNotifications;
 
     public NotificationPreferencesRequest() {
     }
 
     public NotificationPreferencesRequest(
             Boolean emailNotifications,
-            Boolean systemNotifications
-    ) {
+            Boolean systemNotifications) {
+
         this.emailNotifications = emailNotifications;
         this.systemNotifications = systemNotifications;
     }
-
-    // =====================================================
-    // EMAIL NOTIFICATIONS
-    // =====================================================
 
     public Boolean getEmailNotifications() {
         return emailNotifications;
@@ -31,10 +24,6 @@ public class NotificationPreferencesRequest {
     public void setEmailNotifications(Boolean emailNotifications) {
         this.emailNotifications = emailNotifications;
     }
-
-    // =====================================================
-    // SYSTEM NOTIFICATIONS
-    // =====================================================
 
     public Boolean getSystemNotifications() {
         return systemNotifications;

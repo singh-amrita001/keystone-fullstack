@@ -1,10 +1,13 @@
 package com.zidio.keystone.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
@@ -15,15 +18,21 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Customer name is required")
+    @Size(max = 100, message = "Customer name must not exceed 100 characters")
     @Column(nullable = false)
     private String name;
 
+    @Email(message = "Invalid email format")
+    @Size(max = 150, message = "Email must not exceed 150 characters")
     @Column
     private String email;
 
+    @Size(max = 20, message = "Phone must not exceed 20 characters")
     @Column
     private String phone;
 
+    @Size(max = 500, message = "Address must not exceed 500 characters")
     @Column(length = 500)
     private String address;
 

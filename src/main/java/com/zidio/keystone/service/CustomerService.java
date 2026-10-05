@@ -1,6 +1,7 @@
 package com.zidio.keystone.service;
 
 import com.zidio.keystone.domain.Customer;
+import com.zidio.keystone.dto.CustomerResponse;
 import com.zidio.keystone.entity.User;
 import com.zidio.keystone.repository.CustomerRepository;
 import com.zidio.keystone.repository.UserRepository;
@@ -45,7 +46,7 @@ public class CustomerService {
     // =====================================================
 
     @Transactional(readOnly = true)
-    public Page<Customer> getCustomers(
+    public Page<CustomerResponse> getCustomers(
             String search,
             Pageable pageable,
             String email) {
@@ -67,22 +68,32 @@ public class CustomerService {
                             new RuntimeException("Customer not found")
                     );
 
+            CustomerResponse response =
+                    convertToResponse(customer);
+
             return new PageImpl<>(
-                    List.of(customer),
+                    List.of(response),
                     pageable,
                     1
             );
         }
 
+        Page<Customer> customerPage;
+
         if (search == null || search.trim().isEmpty()) {
 
-            return customerRepository.findAll(pageable);
+            customerPage = customerRepository.findAll(pageable);
+
+        } else {
+
+            customerPage =
+                    customerRepository.findByNameContainingIgnoreCase(
+                            search.trim(),
+                            pageable
+                    );
         }
 
-        return customerRepository.findByNameContainingIgnoreCase(
-                search.trim(),
-                pageable
-        );
+        return customerPage.map(this::convertToResponse);
     }
 
     // =====================================================
@@ -90,7 +101,7 @@ public class CustomerService {
     // =====================================================
 
     @Transactional(readOnly = true)
-    public Customer getCustomerById(
+    public CustomerResponse getCustomerById(
             Long id,
             String email) {
 
@@ -98,10 +109,12 @@ public class CustomerService {
 
         checkCustomerAccess(user, id);
 
-        return customerRepository.findById(id)
+        Customer customer = customerRepository.findById(id)
                 .orElseThrow(() ->
                         new RuntimeException("Customer not found")
                 );
+
+        return convertToResponse(customer);
     }
 
     // =====================================================
@@ -198,5 +211,21 @@ public class CustomerService {
             }
         }
     }
-}
 
+    // =====================================================
+    // CUSTOMER -> RESPONSE DTO
+    // =====================================================
+
+    private CustomerResponse convertToResponse(
+            Customer customer) {
+
+        return new CustomerResponse(
+                customer.getId(),
+                customer.getName(),
+                customer.getEmail(),
+                customer.getPhone(),
+                customer.getAddress(),
+                customer.getCreatedAt()
+        );
+    }
+}

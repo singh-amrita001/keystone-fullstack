@@ -12,61 +12,47 @@ import com.zidio.keystone.dto.LoginResponse;
 import com.zidio.keystone.dto.RegisterRequest;
 import com.zidio.keystone.service.AuthService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
+    private final AuthService authService;
 
-private final AuthService authService;
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
-public AuthController(AuthService authService) {
-    this.authService = authService;
-}
+    // =====================================================
+    // REGISTER
+    // =====================================================
 
-@PostMapping("/register")
-public ResponseEntity<?> register(
-        @RequestBody RegisterRequest request) {
-
-    try {
+    @PostMapping("/register")
+    public ResponseEntity<ApiResponse> register(
+            @Valid @RequestBody RegisterRequest request) {
 
         authService.register(request);
 
         return ResponseEntity.ok(
-                new ApiResponse(
-                    "User registered successfully"
-                )
+                new ApiResponse("User registered successfully")
         );
-
-
-    } catch(RuntimeException e) {
-
-
-        return ResponseEntity
-                .badRequest()
-                .body(
-                    new ApiResponse(
-                        e.getMessage()
-                    )
-                );
-
     }
 
-}
+    // =====================================================
+    // LOGIN
+    // =====================================================
 
-@PostMapping("/login")
-public ResponseEntity<LoginResponse> login(
-        @RequestBody LoginRequest request) {
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(
+            @Valid @RequestBody LoginRequest request) {
 
+        LoginResponse response =
+                authService.login(
+                        request.getEmail(),
+                        request.getPassword()
+                );
 
-    LoginResponse response =
-            authService.login(
-                    request.getEmail(),
-                    request.getPassword()
-            );
-
-
-    return ResponseEntity.ok(response);
-}
-
-
+        return ResponseEntity.ok(response);
+    }
 }

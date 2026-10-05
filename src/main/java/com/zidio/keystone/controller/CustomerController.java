@@ -1,7 +1,10 @@
 package com.zidio.keystone.controller;
 
 import com.zidio.keystone.domain.Customer;
+import com.zidio.keystone.dto.CustomerResponse;
 import com.zidio.keystone.service.CustomerService;
+
+import jakarta.validation.Valid;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,7 +38,7 @@ public class CustomerController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'DISPATCHER')")
     public ResponseEntity<Customer> createCustomer(
-            @RequestBody Customer customer) {
+            @Valid @RequestBody Customer customer) {
 
         Customer createdCustomer =
                 customerService.createCustomer(customer);
@@ -47,15 +50,9 @@ public class CustomerController {
 
     // =========================
     // GET CUSTOMERS
-    //
-    // Example:
-    // GET /api/customers?page=0&size=10
-    //
-    // Search:
-    // GET /api/customers?search=Amrita&page=0&size=10
     // =========================
     @GetMapping
-    public ResponseEntity<Page<Customer>> getCustomers(
+    public ResponseEntity<Page<CustomerResponse>> getCustomers(
             @RequestParam(defaultValue = "") String search,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -80,7 +77,7 @@ public class CustomerController {
     // GET CUSTOMER BY ID
     // =========================
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> getCustomerById(
+    public ResponseEntity<CustomerResponse> getCustomerById(
             @PathVariable Long id,
             Authentication authentication) {
 
@@ -100,7 +97,7 @@ public class CustomerController {
     @PreAuthorize("hasAnyRole('ADMIN', 'DISPATCHER')")
     public ResponseEntity<Customer> updateCustomer(
             @PathVariable Long id,
-            @RequestBody Customer customer) {
+            @Valid @RequestBody Customer customer) {
 
         return ResponseEntity.ok(
                 customerService.updateCustomer(
@@ -138,4 +135,3 @@ public class CustomerController {
         }
     }
 }
-
