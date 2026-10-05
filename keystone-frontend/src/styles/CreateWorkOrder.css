@@ -1,0 +1,351 @@
+/* ============================= */
+/* RESET */
+/* ============================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+
+/* ============================= */
+/* PAGE */
+/* ============================= */
+
+
+.create-workorder-page {
+
+ margin-left:280px;
+
+width:calc(100% - 280px);
+
+min-height:100vh;
+
+padding:40px;
+
+background:#0d1117;
+
+color:#f0f6fc;
+
+  
+}
+
+
+
+/* ============================= */
+/* HEADER */
+/* ============================= */
+
+
+.create-header {
+
+    width: 700px;
+
+    margin-bottom: 30px;
+}
+
+
+.eyebrow{
+
+    color:#8b949e;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    font-weight:600;
+
+}
+
+
+
+.create-header h1{
+
+    margin-top:15px;
+
+    font-size:34px;
+
+    color:#f0f6fc;
+
+}
+
+
+
+.create-header p{
+
+    margin-top:10px;
+
+    color:#8b949e;
+
+}
+
+
+
+/* ============================= */
+/* CARD */
+/* ============================= */
+
+.details-card {
+
+    max-width: 700px;
+
+    background: #161b22;
+
+    border: 1px solid #30363d;
+
+    border-radius: 16px;
+
+    padding: 35px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+
+
+
+/* ============================= */
+/* FORM */
+/* ============================= */
+
+
+.details-card form{
+
+    display:flex;
+
+    flex-direction:column;
+
+     gap: 20px;
+}
+
+
+
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:20px;
+
+}
+
+
+
+
+.form-group label{
+
+    color:#c9d1d9;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+}
+
+
+
+
+/* ============================= */
+/* INPUT */
+/* ============================= */
+
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+
+
+    height:45px;
+
+    padding:0 14px;
+
+
+    background:#0d1117;
+
+
+    border:1px solid #30363d;
+
+
+    border-radius:8px;
+
+
+    color:#f0f6fc;
+
+
+    font-size:15px;
+
+
+}
+
+
+
+
+.form-group textarea{
+
+
+    height:140px;
+
+    padding:12px 14px;
+
+    resize:vertical;
+
+}
+
+
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder{
+
+
+    color:#8b949e;
+
+}
+
+
+
+
+.form-group select option{
+
+
+    background:#161b22;
+
+    color:#f0f6fc;
+
+}
+
+
+
+
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+
+
+    outline:none;
+
+    border-color:#58a6ff;
+
+    box-shadow:
+    0 0 0 3px rgba(88,166,255,.15);
+
+}
+
+
+
+/* ============================= */
+/* BUTTON */
+/* ============================= */
+
+
+.submit-workorder-btn{
+
+
+    width:100%;
+
+
+    height:45px;
+
+
+    margin-top:10px;
+
+
+    background:#238636;
+
+
+    border:none;
+
+
+    border-radius:8px;
+
+
+    color:white;
+
+
+    font-size:16px;
+
+
+    font-weight:600;
+
+
+    cursor:pointer;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+.submit-workorder-btn:hover{
+
+
+    background:#2ea043;
+
+
+    transform:translateY(-2px);
+
+
+}
+
+
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+
+@media(max-width:900px){
+
+
+    .create-workorder-page{
+
+
+        margin-left:80px;
+
+        width:calc(100% - 80px);
+
+
+    }
+
+
+}
+
+
+
+
+@media(max-width:600px){
+
+
+    .create-workorder-page{
+
+
+        margin-left:0;
+
+        width:100%;
+
+        padding:20px;
+
+
+    }
+
+
+
+    .details-card{
+
+
+        padding:20px;
+
+
+    }
+
+
+}
