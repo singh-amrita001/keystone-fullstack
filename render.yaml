@@ -8,7 +8,7 @@ services:
     plan: free
     envVars:
       - key: DB_URL
-        value: jdbc:mysql://gateway01.ap-northeast-1.prod.aws.tidbcloud.com:4000/keystone?sslMode=VERIFY_IDENTITY
+        value:jdbc:mysql://gateway01.ap-northeast-1.prod.aws.tidbcloud.com:4000/keystone?sslMode=VERIFY_IDENTITY
       - key: DB_USERNAME
         value: 3GfrEt2R2g9z1fD.root
       - key: DB_PASSWORD
